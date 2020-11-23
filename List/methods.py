@@ -72,12 +72,12 @@ fruits = [1, 2, 3, 4, 7, 9, 0, 22]
 fruits.reverse()
 print(fruits)
 
-# sort() Sorts the list .
+# sort() Sorts the list.
 cars = ['Ford', 'BMW', 'Volvo']
 cars.sort()
 print(cars)
 
-# give the value of the nums in accending order.
+# give the value of the nums in ascending order.
 nums = [1, 2, 3, 4, 7, 9, 0, 22, 0.0, 5.2, 50, 2.2]
 nums.sort()
 print(nums)
