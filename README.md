@@ -1,3 +1,3 @@
 # python-basic
 
-### added some basic programs of python.
+### Added some basic programs of python.
