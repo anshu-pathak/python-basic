@@ -1,0 +1,10 @@
+body,
+html {
+  margin: 0;
+  font-family: sans-serif;
+}
+
+table {
+  border: 10px;
+  background-color: aquamarine;
+}
