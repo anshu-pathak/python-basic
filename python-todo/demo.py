@@ -2,15 +2,11 @@ from flask import Flask, request, jsonify
 from flask_sqlalchemy import SQLAlchemy
 from marshmallow import Schema, fields, validate, ValidationError
 
-# from webargs.flaskparser import parser
-
-# initliazing our flask app, SQLAlchemy and Marshmallow
 app = Flask(__name__)
 
-# app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql://padmin:anshu@1403@localhost/todo'
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///demo.db'
+# app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///demo.db'
+app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql://padmin:anshu@1403@localhost/crud'
 app.secret_key = 'many random bytes'
-
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
 db = SQLAlchemy(app)
@@ -29,31 +25,30 @@ class Post(db.Model):
         self.description = description
         self.author = author
 
+# schema with required field validation.
+
 
 class PostSchema(Schema):
 
-    title = fields.Str(
-        required=True,  error_messages={"required": "Please provide a title."}
-    )
-    print(title)
-    description = fields.Str(
-        required=True, error_messages={"required": "Please provide a description."}
-    )
-    author = fields.Str(
-        required=True, error_messages={"required": "Please provide a author."}
-    )
+    title = fields.Str(required=True)
+    description = fields.Str(required=True)
+    author = fields.Str(required=True)
 
     class Meta:
         fields = ("id", "title", "author", "description")
         ordered = True
+        exclude = ["id"]
 
 
 post_schema = PostSchema()
 posts_schema = PostSchema(many=True)
 
+# for adding a new post.
+
 
 @app.route('/post', methods=['POST'])
 def add_post():
+    # checking the response data.
     json_input = request.get_json()
     try:
         data = post_schema.load(json_input)
@@ -61,7 +56,6 @@ def add_post():
         return {"errors": err.messages}, 422
 
     title = request.json['title']
-    # print(title)
     if title == "":
         return 'The title field have not any values'
 
@@ -74,17 +68,14 @@ def add_post():
         return 'The author field have not any values'
     my_posts = Post(title, description, author)
 
-    err = post_schema.dump(my_posts)
-    # print(err)
-
     db.session.add(my_posts)
     db.session.commit()
 
     return get_post()
-    # return post_schema(jsonify(my_posts))
-
 
 # getting posts
+
+
 @app.route('/get', methods=['GET'])
 def get_post():
     all_posts = Post.query.all()
@@ -92,8 +83,9 @@ def get_post():
 
     return jsonify(result)
 
-
 # getting particular post
+
+
 @app.route('/post_details/<id>/', methods=['GET'])
 def post_details(id):
     post = Post.query.get(id)
@@ -125,6 +117,16 @@ def post_delete(id):
     db.session.commit()
 
     return post_schema.jsonify(post)
+
+
+@app.route('/post_delete/all', methods=['DELETE'])
+def post_deleteall():
+
+    # delete all the data in one time
+    db.session.query(Post).delete()
+    db.session.commit()
+
+    return 'Deleted all data successfully'
 
 
 if __name__ == "__main__":
