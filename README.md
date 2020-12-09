@@ -2,11 +2,11 @@
 
 ### Added some basic programs of python.
 
-**Add some todo app
+*Add some todo app*
 
-**Basic conceps of python
+*Basic conceps of python*
 
-**crud opration
+*crud opration*
 
 Also read read some librarire of pythone and make some program in those libraries.
 1. Flask
