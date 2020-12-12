@@ -1,0 +1,27 @@
+Programming Challenge
+
+We’re scraping DoorDash, and we need to get the service fee for a particular restaurant. For a bit of background, service fees are the percentage that DoorDash charges the consumer for offering their service, and they can range anywhere from 0% to 15%. DoorDash’s api unfortunately doesn’t give us the service fee percentage directly, but they do show you the service fee at checkout if you have items in your cart.
+
+So, we have to add a menu item to our cart. Menu items, though, have required options, and those options can have sub options. If we’re going to send the “add this item to our cart” api request, how do we craft the body of that request with the required options? In this challenge, you’ll be writing a function that takes JSON for a menu item, and outputs JSON for the minimum set of required menu item options.
+
+For an example, head to https://www.doordash.com/store/mendocino-farms-el-segundo-27099/en-US, and, so you can inspect the api requests as we click around, open up the Chrome Dev Tools, and click the Network tab.
+
+Then, click on a menu item, say, 1/2 Bistro Steak Sandwich because it has a lot of options. In the Network tab, check the call the frontend made to the `/graphql` endpoint. It should look something like this:
+
+
+
+Now click on the “Preview” or “Response” tab for the request to get the JSON for the menu item. It should look like this:
+
+
+This is the JSON from their API describing the menu item you just clicked.
+
+Now, add the item to your cart in the UI, selecting the fewest amount of menu items possible (so, only menu items that are “required”). If there are multiple options, select the first ones. Note the additional `/graphql` requests sent, that are fetching additional optionLists for the nested options.
+
+Once you click “Add to cart,” note the `/graphql` request that was sent in the Network tab:
+
+
+Now look at where the options we selected UI were described in the api request. They’re in “variables.nestedOptions.” Note the JSON in “nestedOptions”: this will be the output of the function we’re writing.
+
+So, to keep this challenge as simple as possible, let’s assume we have all of the data we need: all of the menu item and options responses nested in one big JSON object (attached as `input.json`), with the subsequent “optionLists” as a property on their respective “option” objects. How would we take the JSON for that big menu item object and generate the minimum set of required options that you see in “nestedOptions” (attached as `output.json`) so ultimately, in this fictional scraping scenario, we can add any item to our cart with our scraping scripts, and eventually get the service fee for any restaurant?
+
+For this programming challenge, make a function that can take the JSON for any menu item in DoorDash, and generate the minimum set of nestedOptions.  As a test for the function, it should be able to take the attached `input.json`, and output the attached `output.json`.
