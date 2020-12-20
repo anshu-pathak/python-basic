@@ -15,5 +15,8 @@ Also read read some librarire of pythone and make some program in those librarie
 3. NumPy
 4. Marshmallow
 5. Pandas
+6. Ast
+7. Os
+
 
 ### Done the database connection with MySql and sqlite
