@@ -20,3 +20,6 @@ Also read read some librarire of pythone and make some program in those librarie
 
 
 ### Done the database connection with MySql and sqlite
+
+
+how to make a command in python :)
