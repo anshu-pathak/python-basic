@@ -7,6 +7,7 @@
 *Basic conceps of python*
 
 *crud opration*
+
 ~~many more topics are pending~~
 
 Also read read some librarire of pythone and make some program in those libraries.
