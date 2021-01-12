@@ -1,4 +1,4 @@
-# Python-basic operations
+# PYTHON BASIC OPERATIONS
 
 ### Added some basic programs of python.
 
