@@ -24,3 +24,5 @@ Also read read some librarire of pythone and make some program in those librarie
 
 
 How to make a command in python.
+The command is a task which use to make some work in background . without spending more time in frant of uesr.
+And send the response shortly 😃.
